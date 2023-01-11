@@ -11,20 +11,10 @@ import config from './config';
 import { DatabaseModule } from './database/database.module';
 import { AuthModule } from './auth/auth.module';
 import { FilesModule } from './files/files.module';
-import { EmailController } from './email/email.controller';
 import { EmailModule } from './email/email.module';
 
 @Module({
   imports: [
-    // MailerModule.forRoot({
-    //   transport: {
-    //     host: 'smtp.sendgrid.net',
-    //     auth:{
-    //       user: 'apikey',
-    //       pass: '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',
-    //     }
-    //   },
-    // }),
     MailerModule.forRootAsync({
       useFactory: async (configService: ConfigType<typeof config>) => {
         const { host, user, password } = configService.mailer;
