@@ -28,7 +28,7 @@ export class EmailController {
 
     await this.mailerService.sendMail({
       to: email,
-      from: 'education.hilmalex@gmail.com',
+      from: 'info@cambridge-results.com',
       subject: 'Resset password',
       text: `Your temporal password is: ${newPassword} `,
     });
@@ -43,7 +43,7 @@ export class EmailController {
 
     await this.mailerService.sendMail({
       to: email,
-      from: 'education.hilmalex@gmail.com',
+      from: 'info@cambridge-results.com',
       subject: 'User approved',
       text: `Your ID Number is: ${idNumber} `,
     });

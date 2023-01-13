@@ -49,6 +49,7 @@ import { EmailModule } from './email/email.module';
         MAILER_HOST: Joi.string().required(),
         MAILER_USER: Joi.string().required(),
         MAILER_PASSWORD: Joi.string().required(),
+        MAILER_EMAIL_FROM: Joi.string().required(),
       }),
     }),
     DatabaseModule,
