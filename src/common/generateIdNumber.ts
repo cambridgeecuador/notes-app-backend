@@ -1,6 +1,6 @@
 function generateRandomNumber() {
   //Random number from 100000 to 999999
-  return Math.floor(Math.random() * 888888) + 100000;
+  return Math.floor(Math.random() * 888888) + 111111;
 }
 
 function generateRandomLetters() {
