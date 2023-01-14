@@ -30,7 +30,7 @@ export class EmailController {
       to: email,
       from: 'info@cambridge-results.com',
       subject: 'Resset password',
-      text: `Your temporal password is: ${newPassword} `,
+      html: `<b>Your temporal password is:</b> <span>${newPassword}</span>`,
     });
 
     return { message: `Email sent to ${email}` };
@@ -41,11 +41,23 @@ export class EmailController {
   async aproveUser(@Query('idNumber') idNumber) {
     const { email } = await this.emailService.aproveUser(idNumber);
 
+    const html = `
+      <body style="color: #000000">
+        <h2><b>Welcome to Cambrigde Results</b></h2>
+        <h3>This is your ID number: ${idNumber}</h3> 
+        <img 
+          style="width: 100px; height: 100px;"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Coat_of_Arms_of_the_University_of_Cambridge.svg/513px-Coat_of_Arms_of_the_University_of_Cambridge.svg.png" alt="Cambridge Logo"
+        />
+        <h4>Please log into the platform <a href="https://cambridge-results.com/">https://cambridge-results.com/</a></h4>
+      </body>
+    `;
+
     await this.mailerService.sendMail({
       to: email,
       from: 'info@cambridge-results.com',
       subject: 'User approved',
-      text: `Your ID Number is: ${idNumber} `,
+      html,
     });
 
     return { message: `Email sent to ${email}` };
