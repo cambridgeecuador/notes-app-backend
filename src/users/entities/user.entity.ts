@@ -33,6 +33,9 @@ export class User {
     }),
   )
   details: Record<string, any>;
+
+  @Prop({ required: true, default: Date.now })
+  createdAt: Date;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

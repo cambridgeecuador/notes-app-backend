@@ -16,7 +16,7 @@ export class UsersService {
 
   findAll(params?: FilterUsersDto) {
     if (!params) {
-      return this.userRepository.find().exec();
+      return this.userRepository.find().sort({ createdAt: -1 }).exec();
     }
 
     const filters: FilterQuery<User> = {};
@@ -30,7 +30,12 @@ export class UsersService {
       filters.idNumber = params.idNumber;
     }
 
-    return this.userRepository.find(filters).skip(offset).limit(limit).exec();
+    return this.userRepository
+      .find(filters)
+      .skip(offset)
+      .limit(limit)
+      .sort({ createdAt: -1 })
+      .exec();
   }
 
   findOne(id: string) {
