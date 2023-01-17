@@ -9,6 +9,7 @@ import { UsersService } from 'src/users/services/users.service';
 @Injectable()
 export class EmailService {
   constructor(private usersService: UsersService) {}
+
   async resetPassword(idNumber: string) {
     const data = await this.usersService.findByIdNumber(idNumber);
     const user = (await data.toJSON()) as any;
@@ -25,7 +26,7 @@ export class EmailService {
     return { newPassword, email };
   }
 
-  async aproveUser(idNumber: string) {
+  async getUser(idNumber: string) {
     const data = await this.usersService.findByIdNumber(idNumber);
     const user = (await data.toJSON()) as any;
     const { email } = user;

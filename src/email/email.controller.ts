@@ -39,7 +39,7 @@ export class EmailController {
   @Roles(UserRoles.ADMIN)
   @Get('aprove-user')
   async aproveUser(@Query('idNumber') idNumber) {
-    const { email } = await this.emailService.aproveUser(idNumber);
+    const { email } = await this.emailService.getUser(idNumber);
 
     const html = `
       <body style="color: #000000">
@@ -57,6 +57,28 @@ export class EmailController {
       to: email,
       from: 'info@cambridge-results.com',
       subject: 'User approved',
+      html,
+    });
+
+    return { message: `Email sent to ${email}` };
+  }
+
+  @Roles(UserRoles.ADMIN)
+  @Get('update-grades')
+  async updateGrades(@Query('idNumber') idNumber) {
+    const { email } = await this.emailService.getUser(idNumber);
+
+    const html = `
+      <body style="color: #000000">
+        <h2><b>Your grades have been updated</b></h2>
+        <h4>Please log into the platform <a href="https://cambridge-results.com/">https://cambridge-results.com/</a></h4>
+      </body>
+    `;
+
+    await this.mailerService.sendMail({
+      to: email,
+      from: 'info@cambridge-results.com',
+      subject: 'Grades updated',
       html,
     });
 
