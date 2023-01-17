@@ -67,7 +67,8 @@ export class EmailController {
   @Get('update-grades')
   async updateGrades(@Query('idNumber') idNumber) {
     const { email } = await this.emailService.getUser(idNumber);
-
+    console.log(email);
+    
     const html = `
       <body style="color: #000000">
         <h2><b>Your grades have been updated</b></h2>

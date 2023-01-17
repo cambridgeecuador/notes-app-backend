@@ -13,7 +13,6 @@ export class AuthController {
   @Post('/login')
   login(@Req() req: Request) {
     const user = req.user as User;
-    console.log(req.body);
 
     return this.authService.generateJwt(user);
   }

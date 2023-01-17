@@ -83,9 +83,10 @@ export class UsersController {
 
   @Roles(UserRoles.ADMIN)
   @Delete(':userId')
-  async remove(@Param('userId', MongoIdPipe) userId: string) {
+  async remove(@Param('userId', MongoIdPipe) userId: string,  @Req() req) {
+    console.log(req);
     const userRemoved = await this.usersService.remove(userId);
-
+    
     if (!userRemoved) {
       throw new NotFoundException(`User #${userId} not found`);
     }
