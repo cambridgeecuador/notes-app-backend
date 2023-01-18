@@ -26,11 +26,14 @@ export class EmailController {
       idNumber,
     );
 
+    const imageUrl = 'https://students-pdf.s3.sa-east-1.amazonaws.com/assets/reset-password.png';
+    const html = customEmail(imageUrl, newPassword)
+
     await this.mailerService.sendMail({
       to: email,
       from: 'info@cambridge-results.com',
-      subject: 'Resset password',
-      html: `<b>Your temporal password is:</b> <span>${newPassword}</span>`,
+      subject: 'Reset password',
+      html,
     });
 
     return { message: `Email sent to ${email}` };
@@ -40,19 +43,8 @@ export class EmailController {
   @Get('aprove-user')
   async aproveUser(@Query('idNumber') idNumber) {
     const { email } = await this.emailService.getUser(idNumber);
-
-    const html = `
-      <body style="color: #000000">
-        <h2><b>Welcome to Cambrigde Results</b></h2>
-        <h3>This is your ID number: ${idNumber}</h3> 
-        <img 
-          style="width: 100px; height: 100px;"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Coat_of_Arms_of_the_University_of_Cambridge.svg/513px-Coat_of_Arms_of_the_University_of_Cambridge.svg.png" alt="Cambridge Logo"
-        />
-        <h4>Please log into the platform <a href="https://cambridge-results.com/">https://cambridge-results.com/</a></h4>
-      </body>
-    `;
-
+    const imageUrl = "https://students-pdf.s3.sa-east-1.amazonaws.com/assets/register.png"
+    const html = customEmail(imageUrl, "")
     await this.mailerService.sendMail({
       to: email,
       from: 'info@cambridge-results.com',
@@ -67,15 +59,8 @@ export class EmailController {
   @Get('update-grades')
   async updateGrades(@Query('idNumber') idNumber) {
     const { email } = await this.emailService.getUser(idNumber);
-    console.log(email);
-    
-    const html = `
-      <body style="color: #000000">
-        <h2><b>Your grades have been updated</b></h2>
-        <h4>Please log into the platform <a href="https://cambridge-results.com/">https://cambridge-results.com/</a></h4>
-      </body>
-    `;
-
+    const imageUrl = "https://students-pdf.s3.sa-east-1.amazonaws.com/assets/results-ready.png"
+    const html = customEmail(imageUrl, "")
     await this.mailerService.sendMail({
       to: email,
       from: 'info@cambridge-results.com',
@@ -86,3 +71,50 @@ export class EmailController {
     return { message: `Email sent to ${email}` };
   }
 }
+
+const customEmail = (imageUrl:string, newPassword:string) => (
+  `
+  <html>
+  <head>
+      <style>
+          body{
+              margin: 0;
+              padding: 0;
+              box-sizing: border-box;
+          }
+
+          a{
+              text-decoration: none;
+          }
+
+          .container{
+              display: block;
+              width: 100vw;
+              max-width: 1195px;
+              height: 50vw;
+              max-height: 595px;
+              position: relative;
+              background-image: url('${imageUrl}');
+              background-size: cover;
+              background-position: center;
+          }
+
+          .text{
+            color: white;
+            font-size: 2em;
+            color: #000A25;
+            font-weight: 600;
+            padding-top: 37.5%;
+            padding-left: 5%;
+        }
+      </style>
+  </head>
+  <body>
+      <a href="cambridge-results.com">
+          <div class="container">
+              <h3 class="text">${newPassword}</h3>
+          </div>
+      </a>
+  </body> 
+</html>
+`)

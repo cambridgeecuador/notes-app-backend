@@ -12,9 +12,15 @@ import { DatabaseModule } from './database/database.module';
 import { AuthModule } from './auth/auth.module';
 import { FilesModule } from './files/files.module';
 import { EmailModule } from './email/email.module';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
+    }),
     MailerModule.forRootAsync({
       useFactory: async (configService: ConfigType<typeof config>) => {
         const { host, user, password } = configService.mailer;
@@ -26,6 +32,13 @@ import { EmailModule } from './email/email.module';
               user,
               pass: password,
             },
+            template: {
+              dir: join(__dirname, 'mails'),
+              adapter: new HandlebarsAdapter(),
+              options: {
+                strict: true,
+              }
+            }
           },
         };
       },
