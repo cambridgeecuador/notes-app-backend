@@ -4,7 +4,6 @@
   "sourceRoot": "src",
   "compilerOptions": {
     "plugins": ["@nestjs/swagger"],
-    "assets": ["assers/**/*"],
     "watchAssets": true
   }
 }
