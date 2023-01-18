@@ -26,7 +26,7 @@ export class EmailController {
       idNumber,
     );
 
-    const imageUrl = 'https://students-pdf.s3.sa-east-1.amazonaws.com/assets/reset-password.png';
+    const imageUrl = 'https://students-pdf.s3.sa-east-1.amazonaws.com/assets/reset-password.webp';
     const html = customEmail(imageUrl, newPassword)
 
     await this.mailerService.sendMail({
@@ -43,7 +43,7 @@ export class EmailController {
   @Get('aprove-user')
   async aproveUser(@Query('idNumber') idNumber) {
     const { email } = await this.emailService.getUser(idNumber);
-    const imageUrl = "https://students-pdf.s3.sa-east-1.amazonaws.com/assets/register.png"
+    const imageUrl = "https://students-pdf.s3.sa-east-1.amazonaws.com/assets/register.webp"
     const html = customEmail(imageUrl, "")
     await this.mailerService.sendMail({
       to: email,
@@ -59,7 +59,7 @@ export class EmailController {
   @Get('update-grades')
   async updateGrades(@Query('idNumber') idNumber) {
     const { email } = await this.emailService.getUser(idNumber);
-    const imageUrl = "https://students-pdf.s3.sa-east-1.amazonaws.com/assets/results-ready.png"
+    const imageUrl = "https://students-pdf.s3.sa-east-1.amazonaws.com/assets/results-ready.webp"
     const html = customEmail(imageUrl, "")
     await this.mailerService.sendMail({
       to: email,
