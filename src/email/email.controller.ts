@@ -26,8 +26,9 @@ export class EmailController {
       idNumber,
     );
 
-    const imageUrl = 'https://students-pdf.s3.sa-east-1.amazonaws.com/assets/reset-password.webp';
-    const html = customEmail(imageUrl, newPassword)
+    const imageUrl =
+      'https://students-pdf.s3.sa-east-1.amazonaws.com/assets/reset-password.webp';
+    const html = customEmail(imageUrl, newPassword);
 
     await this.mailerService.sendMail({
       to: email,
@@ -43,8 +44,9 @@ export class EmailController {
   @Get('aprove-user')
   async aproveUser(@Query('idNumber') idNumber) {
     const { email } = await this.emailService.getUser(idNumber);
-    const imageUrl = "https://students-pdf.s3.sa-east-1.amazonaws.com/assets/register.webp"
-    const html = customEmail(imageUrl, "")
+    const imageUrl =
+      'https://students-pdf.s3.sa-east-1.amazonaws.com/assets/register.webp';
+    const html = customEmail(imageUrl, '');
     await this.mailerService.sendMail({
       to: email,
       from: 'info@cambridge-results.com',
@@ -59,8 +61,9 @@ export class EmailController {
   @Get('update-grades')
   async updateGrades(@Query('idNumber') idNumber) {
     const { email } = await this.emailService.getUser(idNumber);
-    const imageUrl = "https://students-pdf.s3.sa-east-1.amazonaws.com/assets/results-ready.webp"
-    const html = customEmail(imageUrl, "")
+    const imageUrl =
+      'https://students-pdf.s3.sa-east-1.amazonaws.com/assets/results-ready.webp';
+    const html = customEmail(imageUrl, '');
     await this.mailerService.sendMail({
       to: email,
       from: 'info@cambridge-results.com',
@@ -72,7 +75,7 @@ export class EmailController {
   }
 }
 
-const customEmail = (imageUrl:string, newPassword:string) => (
+const customEmail = (imageUrl: string, newPassword: string) =>
   `
   <html>
   <head>
@@ -107,6 +110,12 @@ const customEmail = (imageUrl:string, newPassword:string) => (
             padding-top: 37.5%;
             padding-left: 5%;
         }
+
+        @media screen and (max-width:600px) {
+          .text {
+              font-size: 1em;
+          }
+      }
       </style>
   </head>
   <body>
@@ -117,4 +126,4 @@ const customEmail = (imageUrl:string, newPassword:string) => (
       </a>
   </body> 
 </html>
-`)
+`;
