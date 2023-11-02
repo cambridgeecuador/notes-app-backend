@@ -22,6 +22,14 @@ import { EmailModule } from './email/email.module';
         return {
           transport: {
             host,
+            secure: true,
+            secureConnection: false, // TLS requires secureConnection to be false
+            tls: {
+                ciphers:'SSLv3'
+            },
+            requireTLS:true,
+            port: 465,
+            debug: true,
             auth: {
               user,
               pass: password,
