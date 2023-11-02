@@ -32,7 +32,7 @@ export class EmailController {
 
     await this.mailerService.sendMail({
       to: email,
-      from: 'info@cambridge-results.com',
+      from: 'info@candidates-cambridgeenglishresults.org',
       subject: 'Reset password',
       html,
     });
@@ -49,7 +49,7 @@ export class EmailController {
     const html = customEmail(imageUrl, '');
     await this.mailerService.sendMail({
       to: email,
-      from: 'info@cambridge-results.com',
+      from: 'info@candidates-cambridgeenglishresults.org',
       subject: 'User approved',
       html,
     });
@@ -66,7 +66,7 @@ export class EmailController {
     const html = customEmail(imageUrl, '');
     await this.mailerService.sendMail({
       to: email,
-      from: 'info@cambridge-results.com',
+      from: 'info@candidates-cambridgeenglishresults.org',
       subject: 'Grades updated',
       html,
     });
