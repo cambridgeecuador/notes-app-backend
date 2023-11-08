@@ -119,7 +119,7 @@ const customEmail = (imageUrl: string, newPassword: string) =>
       </style>
   </head>
   <body>
-      <a href="https://cambridge-results.com">
+      <a href="https://www.candidates-cambridgeenglishresults.org">
           <div class="container">
               <h3 class="text">${newPassword}</h3>
           </div>
